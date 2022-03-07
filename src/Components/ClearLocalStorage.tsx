@@ -11,9 +11,6 @@ export const ClearLocalStorage = (props: ClearLocalStorageHandlerPropsType) => {
     props.setCounter(0)
   }
 
-
-
-
   return (
     <div>
       <button onClick={ClearLocalStorageHandler}>ClearLocalStorage</button>
