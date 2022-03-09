@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from "../App.module.css";
+import classes from './Interface.module.css';
 
 type InterfacePropsType = {
   counter: number

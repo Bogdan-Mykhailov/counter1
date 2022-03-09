@@ -1,0 +1,22 @@
+.btn {
+  width: 70px;
+  height: 30px;
+  margin: 3px;
+  background-color: #07b0a5;
+  border: none;
+  border-radius: 3px;
+  color: #04635D;
+  cursor: pointer;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.btn:hover {
+  color: #A8B5BF;
+}
+
+.btn:disabled {
+  background-color: #A8B5BF;
+  color: #04635D;
+  cursor: auto;
+}
