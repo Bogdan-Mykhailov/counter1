@@ -20,3 +20,7 @@
   color: #04635D;
   cursor: auto;
 }
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}

@@ -19,3 +19,8 @@
   font-size: 60px;
 }
 
+.errorText {
+  font-style: italic;
+  font-size: 30px;
+  color: red;
+}

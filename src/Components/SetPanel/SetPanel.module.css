@@ -1,0 +1,14 @@
+.setPanel {
+  height: 300px;
+  width: 300px;
+  background-color: #04635D;
+  margin: 0 auto;
+}
+
+.inputInterface {
+  margin: 5px;
+}
+
+.incorrectCondition {
+  border: 1px solid red;
+}
