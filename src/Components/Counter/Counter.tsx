@@ -8,6 +8,9 @@ type CounterPropsType = {
   setCounter: (counter: number) => void
   maxValue: number
   minValue: number
+  isError: boolean
+  setError: (isError: boolean) => void
+
 }
 
 export const Counter = (props: CounterPropsType) => {
@@ -24,6 +27,8 @@ export const Counter = (props: CounterPropsType) => {
       <Interface counter={props.counter}
                  maxValue={props.maxValue}
                  minValue={props.minValue}
+                 setError={props.setError}
+                 isError={props.isError}
       />
 
       <div className={classes.btnWindow}>
@@ -37,8 +42,7 @@ export const Counter = (props: CounterPropsType) => {
                       props.maxValue < props.minValue ||
                       props.minValue < 0 ||
                       props.maxValue === props.minValue ||
-                      props.maxValue < props.counter ||
-                      props.minValue > props.counter
+                      props.maxValue < props.counter
                     }/>
 
             <Button callBack={onClickResetButtonHandler}
@@ -46,10 +50,8 @@ export const Counter = (props: CounterPropsType) => {
                     counter={
                       props.counter > props.maxValue ||
                       props.minValue >= props.maxValue ||
-                      props.minValue < 0 ||
-                      props.minValue > props.counter
+                      props.minValue < 0
                     }/>
-
           </div>
         </div>
       </div>

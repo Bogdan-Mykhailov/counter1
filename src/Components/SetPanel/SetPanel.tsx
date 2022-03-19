@@ -11,6 +11,8 @@ type SetPanelPropsType = {
   setInputValue2: (inputValue2: number) => void
   minValue: number
   maxValue: number
+  isError: boolean
+  setError: (isError: boolean) => void
 }
 
 export const SetPanel = (props: SetPanelPropsType) => {
@@ -25,24 +27,26 @@ export const SetPanel = (props: SetPanelPropsType) => {
   const onClickSetButtonHandler = () => {
     props.setCounter(props.counter)
     props.setCounter(props.inputValue2)
+    props.setError(false)
   }
 
-  const inputCondition = 'error' ? classes.incorrectCondition : classes.correctCondition
+  const inputCondition = props.minValue < 0 || props.minValue >= props.maxValue ? classes.incorrectCondition : classes.correctCondition
 
   return (
     <div className={classes.setPanel}>
       <div>
         <div className={classes.inputInterface}>
 
-          <h3>max value:</h3>
+          <h3>Max value:</h3>
 
-          <input value={props.inputValue1}
+          <input className={inputCondition}
+                 value={props.inputValue1}
                  onChange={onChangeInputHandler1}
                  type="number"/>
         </div>
         <div className={classes.inputInterface}>
 
-          <h3>min value:</h3>
+          <h3>Min value:</h3>
 
           <input className={inputCondition}
                  value={props.inputValue2}

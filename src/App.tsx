@@ -6,7 +6,7 @@ import {SetPanel} from "./Components/SetPanel/SetPanel";
 function App() {
 
   const [counter, setCounter] = useState(0)
-
+  const [isError, setError] = useState(false)
   const [inputValue1, setInputValue1] = useState(0)
   const [inputValue2, setInputValue2] = useState(0)
 
@@ -48,20 +48,26 @@ function App() {
 
   return (
     <div className={classes.App}>
-      <Counter counter={counter}
-               setCounter={setCounter}
-               maxValue={maxValue}
-               minValue={minValue}/>
-
-      <SetPanel minValue={minValue}
-                maxValue={maxValue}
-                counter={counter}
-                setCounter={setCounter}
-                inputValue1={inputValue1}
-                setInputValue1={setInputValue1}
-                inputValue2={inputValue2}
-                setInputValue2={setInputValue2}
-      />
+      <div className={classes.components}>
+        <Counter counter={counter}
+                 setCounter={setCounter}
+                 maxValue={maxValue}
+                 minValue={minValue}
+                 isError={isError}
+                 setError={setError}
+        />
+        <SetPanel minValue={minValue}
+                  maxValue={maxValue}
+                  counter={counter}
+                  setCounter={setCounter}
+                  inputValue1={inputValue1}
+                  setInputValue1={setInputValue1}
+                  inputValue2={inputValue2}
+                  setInputValue2={setInputValue2}
+                  setError={setError}
+                  isError={isError}
+        />
+      </div>
     </div>
   );
 }

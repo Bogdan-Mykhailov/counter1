@@ -24,3 +24,9 @@
   font-size: 30px;
   color: red;
 }
+
+.correctText {
+  font-style: italic;
+  font-size: 25px;
+  color: #04635D;
+}

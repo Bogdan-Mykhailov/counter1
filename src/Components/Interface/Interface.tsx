@@ -5,21 +5,25 @@ type InterfacePropsType = {
   counter: number
   maxValue: number
   minValue: number
+  isError: boolean
+  setError: (isError: boolean) => void
 }
 
 export const Interface = (props: InterfacePropsType) => {
 
+
   const getActualValue = (props: InterfacePropsType) => {
 
     if (props.minValue < 0 || props.minValue >= props.maxValue) {
-      return (
-        <p className={classes.errorText}> Incorrect <br/> value! </p>
-      )
+      props.setError(true)
+      return <p className={classes.errorText}> Incorrect <br/> value! </p>
     }
-    return (
-      <p>{props.counter}</p>
-    )
+    if (props.isError) {
+      return <p className={classes.correctText}>Insert new value and press 'Set'</p>
+    }
+    return <p>{props.counter}</p>
   }
+
   return (
     <div className={classes.counterInterface}>
       <h1 className={props.counter === props.maxValue ? classes.counterRed : classes.interface}>
