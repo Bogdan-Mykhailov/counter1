@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import classes from './App.module.css';
-import {Counter} from "./Components/Counter/Counter";
 import {SetPanel} from "./Components/SetPanel/SetPanel";
+import {FullCounter} from "./Components/FullCounter/FullCounter";
+import {Switch} from "@mui/material";
 
 function App() {
 
@@ -9,6 +10,8 @@ function App() {
   const [isError, setError] = useState(false)
   const [inputValue1, setInputValue1] = useState(0)
   const [inputValue2, setInputValue2] = useState(0)
+  const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [switcher, setSwitcher] = useState<boolean>(false)
 
   useEffect(() => {
     let valueAsString = localStorage.getItem('counterValue1')
@@ -43,30 +46,76 @@ function App() {
     localStorage.setItem('counterValue', JSON.stringify(counter))
   }, [counter])
 
+  useEffect(() => {
+    let switcher = localStorage.getItem('switcher')
+    if (switcher) {
+      let switcherFromLS = JSON.parse(switcher)
+      setSwitcher(switcherFromLS)
+    }
+  }, [])
+  useEffect(() => {
+    localStorage.setItem('switcher', JSON.stringify(switcher))
+  }, [switcher])
+
   let maxValue = inputValue1
   let minValue = inputValue2
 
+  const label = {inputProps: {'aria-label': 'Switch demo'}};
+
+  const switcherHandler = () => {
+    setSwitcher(!switcher)
+  }
+
   return (
     <div className={classes.App}>
-      <div className={classes.components}>
-        <Counter counter={counter}
-                 setCounter={setCounter}
-                 maxValue={maxValue}
-                 minValue={minValue}
-                 isError={isError}
-                 setError={setError}
-        />
-        <SetPanel minValue={minValue}
-                  maxValue={maxValue}
-                  counter={counter}
-                  setCounter={setCounter}
-                  inputValue1={inputValue1}
-                  setInputValue1={setInputValue1}
-                  inputValue2={inputValue2}
-                  setInputValue2={setInputValue2}
-                  setError={setError}
-                  isError={isError}
-        />
+      <Switch {...label} value={switcher} checked={switcher} color="default" onClick={switcherHandler}/>
+      <div>
+        {switcher
+          ? <div className={classes.components}>
+            {collapsed
+              ? <FullCounter counter={counter}
+                             setCounter={setCounter}
+                             maxValue={maxValue}
+                             minValue={minValue}
+                             isError={isError}
+                             setError={setError}
+                             setCollapsed={setCollapsed}
+                             switcher={switcher}/>
+              : <SetPanel minValue={minValue}
+                          maxValue={maxValue}
+                          counter={counter}
+                          setCounter={setCounter}
+                          inputValue1={inputValue1}
+                          setInputValue1={setInputValue1}
+                          inputValue2={inputValue2}
+                          setInputValue2={setInputValue2}
+                          setError={setError}
+                          isError={isError}
+                          collapsed={collapsed}
+                          setCollapsed={setCollapsed}/>}
+          </div>
+          : <div className={classes.components}>
+            <FullCounter counter={counter}
+                         setCounter={setCounter}
+                         maxValue={maxValue}
+                         minValue={minValue}
+                         isError={isError}
+                         setError={setError}
+                         setCollapsed={setCollapsed}
+                         switcher={switcher}/>
+            <SetPanel minValue={minValue}
+                      maxValue={maxValue}
+                      counter={counter}
+                      setCounter={setCounter}
+                      inputValue1={inputValue1}
+                      setInputValue1={setInputValue1}
+                      inputValue2={inputValue2}
+                      setInputValue2={setInputValue2}
+                      setError={setError}
+                      isError={isError}
+                      collapsed={collapsed}
+                      setCollapsed={setCollapsed}/>
+          </div>}
       </div>
     </div>
   );

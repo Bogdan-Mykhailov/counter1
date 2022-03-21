@@ -11,7 +11,6 @@ type InterfacePropsType = {
 
 export const Interface = (props: InterfacePropsType) => {
 
-
   const getActualValue = (props: InterfacePropsType) => {
 
     if (props.minValue < 0 || props.minValue >= props.maxValue) {
@@ -26,7 +25,9 @@ export const Interface = (props: InterfacePropsType) => {
 
   return (
     <div className={classes.counterInterface}>
-      <h1 className={props.counter === props.maxValue ? classes.counterRed : classes.interface}>
+      <h1 className={props.counter === props.maxValue
+        ? classes.counterRed
+        : classes.interface}>
         {getActualValue(props)}
       </h1>
     </div>

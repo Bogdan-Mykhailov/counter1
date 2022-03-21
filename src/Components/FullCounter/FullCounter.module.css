@@ -1,4 +1,4 @@
-.counter {
+.fullCounter {
   text-align: center;
   padding: 7px 7px 2px 7px;
   border: 2px solid aquamarine;
@@ -19,4 +19,13 @@
 .buttons {
   display: flex;
   justify-content: space-around;
+}
+.setBtn {
+  margin-top: 7px;
+  color: #07b0a5;
+  cursor: pointer;
+}
+
+.setBtn:hover {
+  color: #A8B5BF;
 }

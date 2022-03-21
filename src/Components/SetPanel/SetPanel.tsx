@@ -13,6 +13,8 @@ type SetPanelPropsType = {
   maxValue: number
   isError: boolean
   setError: (isError: boolean) => void
+  collapsed: boolean
+  setCollapsed: (collapsed: boolean) => void
 }
 
 export const SetPanel = (props: SetPanelPropsType) => {
@@ -28,9 +30,12 @@ export const SetPanel = (props: SetPanelPropsType) => {
     props.setCounter(props.counter)
     props.setCounter(props.inputValue2)
     props.setError(false)
+    props.setCollapsed(true)
   }
 
-  const inputCondition = props.minValue < 0 || props.minValue >= props.maxValue ? classes.incorrectCondition : classes.correctCondition
+  const inputCondition = props.minValue < 0 || props.minValue >= props.maxValue
+    ? classes.incorrectCondition
+    : classes.correctCondition
 
   return (
     <div className={classes.setPanel}>
@@ -44,6 +49,7 @@ export const SetPanel = (props: SetPanelPropsType) => {
                  onChange={onChangeInputHandler1}
                  type="number"/>
         </div>
+
         <div className={classes.inputInterface}>
 
           <h3>Min value:</h3>
@@ -53,14 +59,13 @@ export const SetPanel = (props: SetPanelPropsType) => {
                  onChange={onChangeInputHandler2}
                  type="number"/>
         </div>
-      </div>
 
+      </div>
       <Button callBack={onClickSetButtonHandler}
               buttonName='Set'
               counter={
                 props.minValue < 0 ||
-                props.maxValue <= props.minValue
-              }/>
+                props.maxValue <= props.minValue}/>
     </div>
   );
 };
