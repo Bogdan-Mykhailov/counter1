@@ -63,7 +63,6 @@ function App() {
   };
 
   return (
-    //
     <div className={`${classes.App} ${theme}`}>
 
       <Switch {...label}
