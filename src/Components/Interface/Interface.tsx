@@ -1,8 +1,9 @@
 import React from 'react';
 import classes from './Interface.module.css';
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../BLL/store";
 
 type InterfacePropsType = {
-  counter: number
   maxValue: number
   minValue: number
   isError: boolean
@@ -10,6 +11,9 @@ type InterfacePropsType = {
 }
 
 export const Interface = (props: InterfacePropsType) => {
+
+  const value = useSelector<AppStateType, number>( state => state.counter.value)
+
 
   const getActualValue = (props: InterfacePropsType) => {
 
@@ -20,12 +24,12 @@ export const Interface = (props: InterfacePropsType) => {
     if (props.isError) {
       return <p className={classes.correctText}>Insert new value and press 'Set'</p>
     }
-    return <p>{props.counter}</p>
+    return <p>{value}</p>
   };
 
   return (
     <div className={classes.counterInterface}>
-      <h1 className={props.counter === props.maxValue
+      <h1 className={value === props.maxValue
         ? classes.counterRed
         : classes.interface}>
         {getActualValue(props)}

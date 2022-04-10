@@ -3,10 +3,11 @@ import {Interface} from "../Interface/Interface";
 import classes from './FullCounter.module.css';
 import {Button} from "../Button/Button";
 import DisplaySettingsOutlinedIcon from '@mui/icons-material/DisplaySettingsOutlined';
+import {incrementValueAC, resetValueAC} from "../../BLL/counter-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../BLL/store";
 
 type FullCounterPropsType = {
-  counter: number
-  setCounter: (counter: number) => void
   maxValue: number
   minValue: number
   isError: boolean
@@ -17,31 +18,34 @@ type FullCounterPropsType = {
 
 export const FullCounter = (props: FullCounterPropsType) => {
 
+  const value = useSelector<AppStateType, number>( state => state.counter.value)
+  const dispatch = useDispatch()
+
   const onClickAddHandler = () => {
-    props.setCounter(props.counter + 1)
+    dispatch(incrementValueAC())
   }
   const onClickResetButtonHandler = () => {
-    props.setCounter(props.minValue)
+    dispatch(resetValueAC(props.minValue))
   }
   const changeInterfaceHandler = () => {
     props.setCollapsed(false)
   }
 
   const addConditions =
-    props.counter === props.maxValue ||
+    value === props.maxValue ||
     props.maxValue < props.minValue ||
     props.minValue < 0 ||
     props.maxValue === props.minValue ||
-    props.maxValue < props.counter;
+    props.maxValue < value;
 
   const resetConditions =
-    props.counter > props.maxValue ||
+   value > props.maxValue ||
     props.minValue >= props.maxValue ||
     props.minValue < 0;
 
   return (
     <div className={classes.fullCounter}>
-      <Interface counter={props.counter}
+      <Interface
                  maxValue={props.maxValue}
                  minValue={props.minValue}
                  setError={props.setError}

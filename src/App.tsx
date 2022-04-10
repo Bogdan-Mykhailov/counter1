@@ -3,10 +3,14 @@ import classes from './App.module.css';
 import {SetPanel} from "./Components/SetPanel/SetPanel";
 import {FullCounter} from "./Components/FullCounter/FullCounter";
 import {Switch} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "./BLL/store";
 
 function App() {
 
-  const [counter, setCounter] = useState<number>(0)
+  const value = useSelector<AppStateType, number>(state => state.counter.value)
+  const dispatch = useDispatch()
+
   const [isError, setError] = useState(false)
   const [inputValue1, setInputValue1] = useState(0)
   const [inputValue2, setInputValue2] = useState(0)
@@ -36,17 +40,6 @@ function App() {
   }, [inputValue2]);
 
   useEffect(() => {
-    let valueAsString = localStorage.getItem('counterValue')
-    if (valueAsString) {
-      let newValue = JSON.parse(valueAsString)
-      setCounter(newValue)
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('counterValue', JSON.stringify(counter))
-  }, [counter]);
-
-  useEffect(() => {
     let switcher = localStorage.getItem('switcher')
     if (switcher) {
       let switcherFromLS = JSON.parse(switcher)
@@ -62,72 +55,67 @@ function App() {
 
   const label = {inputProps: {'aria-label': 'Switch demo'}};
 
+  const theme = switcher ? classes.themeDark : classes.themeWhite;
+
   const switcherHandler = () => {
     setSwitcher(!switcher)
+
   };
 
   return (
-    <div className={classes.App}>
+    //
+    <div className={`${classes.App} ${theme}`}>
+
       <Switch {...label}
               value={switcher}
               checked={switcher}
               color="default"
               onClick={switcherHandler}
       />
-      <div>
-        {switcher
-          ? <div className={classes.components}>
-            {collapsed
-              ? <FullCounter counter={counter}
-                             setCounter={setCounter}
-                             maxValue={maxValue}
-                             minValue={minValue}
-                             isError={isError}
-                             setError={setError}
-                             setCollapsed={setCollapsed}
-                             switcher={switcher}
-              />
-              : <SetPanel minValue={minValue}
-                          maxValue={maxValue}
-                          counter={counter}
-                          setCounter={setCounter}
-                          inputValue1={inputValue1}
-                          setInputValue1={setInputValue1}
-                          inputValue2={inputValue2}
-                          setInputValue2={setInputValue2}
-                          setError={setError}
-                          isError={isError}
-                          collapsed={collapsed}
-                          setCollapsed={setCollapsed}
-              />
-            }
-          </div>
-          : <div className={classes.components}>
-            <FullCounter counter={counter}
-                         setCounter={setCounter}
-                         maxValue={maxValue}
-                         minValue={minValue}
-                         isError={isError}
-                         setError={setError}
-                         setCollapsed={setCollapsed}
-                         switcher={switcher}
+      {switcher
+        ? <div className={classes.components}>
+          {collapsed
+            ? <FullCounter maxValue={maxValue}
+                           minValue={minValue}
+                           isError={isError}
+                           setError={setError}
+                           setCollapsed={setCollapsed}
+                           switcher={switcher}
             />
-            <SetPanel minValue={minValue}
-                      maxValue={maxValue}
-                      counter={counter}
-                      setCounter={setCounter}
-                      inputValue1={inputValue1}
-                      setInputValue1={setInputValue1}
-                      inputValue2={inputValue2}
-                      setInputValue2={setInputValue2}
-                      setError={setError}
-                      isError={isError}
-                      collapsed={collapsed}
-                      setCollapsed={setCollapsed}
+            : <SetPanel minValue={minValue}
+                        maxValue={maxValue}
+                        inputValue1={inputValue1}
+                        setInputValue1={setInputValue1}
+                        inputValue2={inputValue2}
+                        setInputValue2={setInputValue2}
+                        setError={setError}
+                        isError={isError}
+                        collapsed={collapsed}
+                        setCollapsed={setCollapsed}
             />
-          </div>
-        }
-      </div>
+          }
+        </div>
+        : <div className={classes.components}>
+          <FullCounter maxValue={maxValue}
+                       minValue={minValue}
+                       isError={isError}
+                       setError={setError}
+                       setCollapsed={setCollapsed}
+                       switcher={switcher}
+          />
+          <SetPanel minValue={minValue}
+                    maxValue={maxValue}
+                    inputValue1={inputValue1}
+                    setInputValue1={setInputValue1}
+                    inputValue2={inputValue2}
+                    setInputValue2={setInputValue2}
+                    setError={setError}
+                    isError={isError}
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+          />
+        </div>
+      }
     </div>
   );
 }

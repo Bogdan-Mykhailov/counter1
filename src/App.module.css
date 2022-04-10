@@ -1,6 +1,20 @@
+.App {
+  background-color: var(--bg);
+}
+
 .components {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 96vh;
+}
+
+.themeWhite {
+  --bg: aquamarine;
+  --border-color: #10454F;
+}
+
+.themeDark {
+  --bg: #10454F;
+  --border-color: aquamarine
 }

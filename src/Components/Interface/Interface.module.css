@@ -2,14 +2,14 @@
   margin: 0 auto;
   height: 151px;
   width: 200px;
-  background-color: aquamarine;
-  border: 2px solid aquamarine;
+  background-color: var(--border-color);
+  border: 2px solid var(--border-color);
   border-radius: 3px;
 }
 
 .interface {
   font-style: italic;
-  color: #04635D;
+  color: var(--bg);
   font-size: 60px;
 }
 
@@ -28,5 +28,5 @@
 .correctText {
   font-style: italic;
   font-size: 25px;
-  color: #04635D;
+  color: var(--bg);
 }

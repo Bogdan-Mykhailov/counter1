@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import classes from './SetPanel.module.css'
 import {Button} from "../Button/Button";
+import {useDispatch} from "react-redux";
+import {setValueAC} from "../../BLL/counter-reducer";
 
 type SetPanelPropsType = {
-  counter: number
-  setCounter: (counter: number) => void
   inputValue1: number
   setInputValue1: (inputValue1: number) => void
   inputValue2: number
@@ -19,6 +19,10 @@ type SetPanelPropsType = {
 
 export const SetPanel = (props: SetPanelPropsType) => {
 
+
+  const dispatch = useDispatch()
+
+
   const onChangeInputHandler1 = (event: ChangeEvent<HTMLInputElement>) => {
     props.setInputValue1(Number(event.currentTarget.value))
   };
@@ -28,8 +32,8 @@ export const SetPanel = (props: SetPanelPropsType) => {
   };
 
   const onClickSetButtonHandler = () => {
-    props.setCounter(props.counter)
-    props.setCounter(props.inputValue2)
+    dispatch(setValueAC(props.minValue))
+    //props.setCounter(props.counter)  // ??????????
     props.setError(false)
     props.setCollapsed(true)
   };

@@ -1,7 +1,7 @@
 .fullCounter {
   text-align: center;
   padding: 7px 7px 2px 7px;
-  border: 2px solid aquamarine;
+  border: 2px solid var(--border-color);
   width: 210px;
   margin: 25px;
   border-radius: 3px;
@@ -10,7 +10,7 @@
 
 .wrapper {
   padding: 10px;
-  border: 2px solid aquamarine;
+  border: 2px solid var(--border-color);
   width: 180px;
   margin: 5px auto;
   border-radius: 3px;
