@@ -6,7 +6,7 @@ import {Switch} from "@mui/material";
 
 function App() {
 
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState<number>(0)
   const [isError, setError] = useState(false)
   const [inputValue1, setInputValue1] = useState(0)
   const [inputValue2, setInputValue2] = useState(0)
@@ -19,10 +19,10 @@ function App() {
       let newValue = JSON.parse(valueAsString)
       setInputValue1(newValue)
     }
-  }, [])
+  }, []);
   useEffect(() => {
     localStorage.setItem('counterValue1', JSON.stringify(inputValue1))
-  }, [inputValue1])
+  }, [inputValue1]);
 
   useEffect(() => {
     let valueAsString = localStorage.getItem('counterValue2')
@@ -30,10 +30,10 @@ function App() {
       let newValue2 = JSON.parse(valueAsString)
       setInputValue2(newValue2)
     }
-  }, [])
+  }, []);
   useEffect(() => {
     localStorage.setItem('counterValue2', JSON.stringify(inputValue2))
-  }, [inputValue2])
+  }, [inputValue2]);
 
   useEffect(() => {
     let valueAsString = localStorage.getItem('counterValue')
@@ -41,10 +41,10 @@ function App() {
       let newValue = JSON.parse(valueAsString)
       setCounter(newValue)
     }
-  }, [])
+  }, []);
   useEffect(() => {
     localStorage.setItem('counterValue', JSON.stringify(counter))
-  }, [counter])
+  }, [counter]);
 
   useEffect(() => {
     let switcher = localStorage.getItem('switcher')
@@ -52,23 +52,28 @@ function App() {
       let switcherFromLS = JSON.parse(switcher)
       setSwitcher(switcherFromLS)
     }
-  }, [])
+  }, []);
   useEffect(() => {
     localStorage.setItem('switcher', JSON.stringify(switcher))
-  }, [switcher])
+  }, [switcher]);
 
-  let maxValue = inputValue1
-  let minValue = inputValue2
+  let maxValue = inputValue1;
+  let minValue = inputValue2;
 
   const label = {inputProps: {'aria-label': 'Switch demo'}};
 
   const switcherHandler = () => {
     setSwitcher(!switcher)
-  }
+  };
 
   return (
     <div className={classes.App}>
-      <Switch {...label} value={switcher} checked={switcher} color="default" onClick={switcherHandler}/>
+      <Switch {...label}
+              value={switcher}
+              checked={switcher}
+              color="default"
+              onClick={switcherHandler}
+      />
       <div>
         {switcher
           ? <div className={classes.components}>
@@ -80,7 +85,8 @@ function App() {
                              isError={isError}
                              setError={setError}
                              setCollapsed={setCollapsed}
-                             switcher={switcher}/>
+                             switcher={switcher}
+              />
               : <SetPanel minValue={minValue}
                           maxValue={maxValue}
                           counter={counter}
@@ -92,7 +98,9 @@ function App() {
                           setError={setError}
                           isError={isError}
                           collapsed={collapsed}
-                          setCollapsed={setCollapsed}/>}
+                          setCollapsed={setCollapsed}
+              />
+            }
           </div>
           : <div className={classes.components}>
             <FullCounter counter={counter}
@@ -102,7 +110,8 @@ function App() {
                          isError={isError}
                          setError={setError}
                          setCollapsed={setCollapsed}
-                         switcher={switcher}/>
+                         switcher={switcher}
+            />
             <SetPanel minValue={minValue}
                       maxValue={maxValue}
                       counter={counter}
@@ -114,8 +123,10 @@ function App() {
                       setError={setError}
                       isError={isError}
                       collapsed={collapsed}
-                      setCollapsed={setCollapsed}/>
-          </div>}
+                      setCollapsed={setCollapsed}
+            />
+          </div>
+        }
       </div>
     </div>
   );

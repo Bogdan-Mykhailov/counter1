@@ -21,7 +21,7 @@ export const Interface = (props: InterfacePropsType) => {
       return <p className={classes.correctText}>Insert new value and press 'Set'</p>
     }
     return <p>{props.counter}</p>
-  }
+  };
 
   return (
     <div className={classes.counterInterface}>

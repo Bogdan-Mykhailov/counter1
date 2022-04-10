@@ -21,21 +21,24 @@ export const SetPanel = (props: SetPanelPropsType) => {
 
   const onChangeInputHandler1 = (event: ChangeEvent<HTMLInputElement>) => {
     props.setInputValue1(Number(event.currentTarget.value))
-  }
+  };
+
   const onChangeInputHandler2 = (event: ChangeEvent<HTMLInputElement>) => {
     props.setInputValue2(Number(event.currentTarget.value))
-  }
+  };
 
   const onClickSetButtonHandler = () => {
     props.setCounter(props.counter)
     props.setCounter(props.inputValue2)
     props.setError(false)
     props.setCollapsed(true)
-  }
+  };
 
   const inputCondition = props.minValue < 0 || props.minValue >= props.maxValue
     ? classes.incorrectCondition
-    : classes.correctCondition
+    : classes.correctCondition;
+
+  const setButtonDisableCondition = props.minValue < 0 || props.maxValue <= props.minValue;
 
   return (
     <div className={classes.setPanel}>
@@ -47,7 +50,8 @@ export const SetPanel = (props: SetPanelPropsType) => {
           <input className={inputCondition}
                  value={props.inputValue1}
                  onChange={onChangeInputHandler1}
-                 type="number"/>
+                 type="number"
+          />
         </div>
 
         <div className={classes.inputInterface}>
@@ -57,15 +61,15 @@ export const SetPanel = (props: SetPanelPropsType) => {
           <input className={inputCondition}
                  value={props.inputValue2}
                  onChange={onChangeInputHandler2}
-                 type="number"/>
+                 type="number"
+          />
         </div>
 
       </div>
       <Button callBack={onClickSetButtonHandler}
               buttonName='Set'
-              counter={
-                props.minValue < 0 ||
-                props.maxValue <= props.minValue}/>
+              counter={setButtonDisableCondition}
+      />
     </div>
   );
 };

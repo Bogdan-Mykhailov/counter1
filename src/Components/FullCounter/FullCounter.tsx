@@ -32,12 +32,12 @@ export const FullCounter = (props: FullCounterPropsType) => {
     props.maxValue < props.minValue ||
     props.minValue < 0 ||
     props.maxValue === props.minValue ||
-    props.maxValue < props.counter
+    props.maxValue < props.counter;
 
   const resetConditions =
     props.counter > props.maxValue ||
     props.minValue >= props.maxValue ||
-    props.minValue < 0
+    props.minValue < 0;
 
   return (
     <div className={classes.fullCounter}>
@@ -45,7 +45,8 @@ export const FullCounter = (props: FullCounterPropsType) => {
                  maxValue={props.maxValue}
                  minValue={props.minValue}
                  setError={props.setError}
-                 isError={props.isError}/>
+                 isError={props.isError}
+      />
 
       <div className={classes.btnWindow}>
         <div className={classes.wrapper}>
@@ -53,15 +54,19 @@ export const FullCounter = (props: FullCounterPropsType) => {
 
             <Button callBack={onClickAddHandler}
                     buttonName='Add'
-                    counter={addConditions}/>
+                    counter={addConditions}
+            />
 
-            {props.switcher ? <div className={classes.setBtn}>
-              <DisplaySettingsOutlinedIcon onClick={changeInterfaceHandler}/>
-            </div> : <></>}
+            {props.switcher
+              ? <div className={classes.setBtn}>
+                <DisplaySettingsOutlinedIcon onClick={changeInterfaceHandler}/>
+              </div>
+              : <></>}
 
             <Button callBack={onClickResetButtonHandler}
                     buttonName='Reset'
-                    counter={resetConditions}/>
+                    counter={resetConditions}
+            />
           </div>
         </div>
       </div>
