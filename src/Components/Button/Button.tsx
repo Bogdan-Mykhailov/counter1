@@ -4,7 +4,7 @@ import classes from './Button.module.css';
 type ButtonPropsType = {
   callBack: () => void
   buttonName: string
-  counter?: boolean
+  counter: boolean
 }
 
 export const Button = (props: ButtonPropsType) => {

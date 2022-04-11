@@ -22,10 +22,10 @@
 }
 .setBtn {
   margin-top: 7px;
-  color: #07b0a5;
+  color: var(--border-color);
   cursor: pointer;
 }
 
 .setBtn:hover {
-  color: #A8B5BF;
+  color: var(--button);
 }

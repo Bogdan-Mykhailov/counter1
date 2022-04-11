@@ -10,11 +10,19 @@
 }
 
 .themeWhite {
-  --bg: aquamarine;
-  --border-color: #10454F;
+  --bg: #185959;
+  --border-color: #D98825;
+  --button: #BF6D24;
+  --font-color: #8C5626;
+  --hovered-font: #185959;
+  --disabled: #A6A6A6;
 }
 
 .themeDark {
-  --bg: #10454F;
-  --border-color: aquamarine
+  --bg: #D9D9D9;
+  --border-color: #404040;
+  --button: #737373;
+  --font-color: #D9D9D9;
+  --hovered-font: #0D0D0D;
+  --disabled: #A6A6A6;
 }
