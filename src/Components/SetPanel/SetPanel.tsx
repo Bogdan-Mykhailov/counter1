@@ -1,48 +1,36 @@
 import React, {ChangeEvent} from 'react';
 import classes from './SetPanel.module.css'
 import {Button} from "../Button/Button";
-import {useDispatch} from "react-redux";
-import {setValueAC} from "../../BLL/counter-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {collapsedAC, errorAC, maxValueAC, minValueAC, setValueAC} from "../../BLL/counter-reducer";
+import {AppStateType} from "../../BLL/store";
 
-type SetPanelPropsType = {
-  inputValue1: number
-  setInputValue1: (inputValue1: number) => void
-  inputValue2: number
-  setInputValue2: (inputValue2: number) => void
-  minValue: number
-  maxValue: number
-  isError: boolean
-  setError: (isError: boolean) => void
-  collapsed: boolean
-  setCollapsed: (collapsed: boolean) => void
-}
+export const SetPanel = () => {
 
-export const SetPanel = (props: SetPanelPropsType) => {
+  const maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue);
+  const minValue = useSelector<AppStateType, number>(state => state.counter.minValue);
 
-
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const onChangeInputHandler1 = (event: ChangeEvent<HTMLInputElement>) => {
-    props.setInputValue1(Number(event.currentTarget.value))
+    const maxValue = Number(event.currentTarget.value)
+    dispatch(maxValueAC(maxValue))
   };
-
   const onChangeInputHandler2 = (event: ChangeEvent<HTMLInputElement>) => {
-    props.setInputValue2(Number(event.currentTarget.value))
+    const minValue = Number(event.currentTarget.value)
+    dispatch(minValueAC(minValue))
   };
-
   const onClickSetButtonHandler = () => {
-    dispatch(setValueAC(props.minValue))
-    //props.setCounter(props.counter)  // ??????????
-    props.setError(false)
-    props.setCollapsed(true)
+    dispatch(setValueAC(minValue))
+    dispatch(errorAC(false))
+    dispatch(collapsedAC(true))
   };
 
-  const inputCondition = props.minValue < 0 || props.minValue >= props.maxValue
+  const inputCondition = minValue < 0 || minValue >= maxValue
     ? classes.incorrectCondition
     : classes.correctCondition;
 
-  const setButtonDisableCondition = props.minValue < 0 || props.maxValue <= props.minValue;
+  const setButtonDisableCondition = minValue < 0 || maxValue <= minValue;
 
   return (
     <div className={classes.setPanel}>
@@ -51,10 +39,11 @@ export const SetPanel = (props: SetPanelPropsType) => {
 
           <h3>Max value:</h3>
 
-          <input className={inputCondition}
-                 value={props.inputValue1}
-                 onChange={onChangeInputHandler1}
-                 type="number"
+          <input
+            className={inputCondition}
+            value={maxValue}
+            onChange={onChangeInputHandler1}
+            type="number"
           />
         </div>
 
@@ -62,17 +51,19 @@ export const SetPanel = (props: SetPanelPropsType) => {
 
           <h3>Min value:</h3>
 
-          <input className={inputCondition}
-                 value={props.inputValue2}
-                 onChange={onChangeInputHandler2}
-                 type="number"
+          <input
+            className={inputCondition}
+            value={minValue}
+            onChange={onChangeInputHandler2}
+            type="number"
           />
         </div>
 
       </div>
-      <Button callBack={onClickSetButtonHandler}
-              buttonName='Set'
-              counter={setButtonDisableCondition}
+      <Button
+        callBack={onClickSetButtonHandler}
+        buttonName='Set'
+        counter={setButtonDisableCondition}
       />
     </div>
   );

@@ -1,27 +1,25 @@
 import React from 'react';
 import classes from './Interface.module.css';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/store";
+import {errorAC} from "../../BLL/counter-reducer";
 
-type InterfacePropsType = {
-  maxValue: number
-  minValue: number
-  isError: boolean
-  setError: (isError: boolean) => void
-}
+export const Interface = () => {
 
-export const Interface = (props: InterfacePropsType) => {
+  const value = useSelector<AppStateType, number>(state => state.counter.value);
+  const isError = useSelector<AppStateType, boolean>(state => state.counter.isError);
+  const minValue = useSelector<AppStateType, number>(state => state.counter.minValue);
+  const maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue);
 
-  const value = useSelector<AppStateType, number>( state => state.counter.value)
+  const dispatch = useDispatch();
 
+  const getActualValue = () => {
 
-  const getActualValue = (props: InterfacePropsType) => {
-
-    if (props.minValue < 0 || props.minValue >= props.maxValue) {
-      props.setError(true)
+    if (minValue < 0 || minValue >= maxValue) {
+      dispatch(errorAC(true))
       return <p className={classes.errorText}> Incorrect <br/> value! </p>
     }
-    if (props.isError) {
+    if (isError) {
       return <p className={classes.correctText}>Insert new value and press 'Set'</p>
     }
     return <p>{value}</p>
@@ -29,10 +27,10 @@ export const Interface = (props: InterfacePropsType) => {
 
   return (
     <div className={classes.counterInterface}>
-      <h1 className={value === props.maxValue
+      <h1 className={value === maxValue
         ? classes.counterRed
         : classes.interface}>
-        {getActualValue(props)}
+        {getActualValue()}
       </h1>
     </div>
   );

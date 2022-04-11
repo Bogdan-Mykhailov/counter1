@@ -3,73 +3,65 @@ import {Interface} from "../Interface/Interface";
 import classes from './FullCounter.module.css';
 import {Button} from "../Button/Button";
 import DisplaySettingsOutlinedIcon from '@mui/icons-material/DisplaySettingsOutlined';
-import {incrementValueAC, resetValueAC} from "../../BLL/counter-reducer";
+import {collapsedAC, incrementValueAC, resetValueAC} from "../../BLL/counter-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/store";
 
-type FullCounterPropsType = {
-  maxValue: number
-  minValue: number
-  isError: boolean
-  setError: (isError: boolean) => void
-  setCollapsed: (collapsed: boolean) => void
-  switcher: boolean
-}
+export const FullCounter = () => {
 
-export const FullCounter = (props: FullCounterPropsType) => {
+  const value = useSelector<AppStateType, number>(state => state.counter.value);
+  const switcher = useSelector<AppStateType, boolean>(state => state.counter.switcher);
+  const minValue = useSelector<AppStateType, number>(state => state.counter.minValue);
+  const maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue);
 
-  const value = useSelector<AppStateType, number>( state => state.counter.value)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onClickAddHandler = () => {
     dispatch(incrementValueAC())
-  }
+  };
   const onClickResetButtonHandler = () => {
-    dispatch(resetValueAC(props.minValue))
-  }
+    dispatch(resetValueAC(minValue))
+  };
   const changeInterfaceHandler = () => {
-    props.setCollapsed(false)
-  }
+    dispatch(collapsedAC(false))
+  };
 
   const addConditions =
-    value === props.maxValue ||
-    props.maxValue < props.minValue ||
-    props.minValue < 0 ||
-    props.maxValue === props.minValue ||
-    props.maxValue < value;
+    value === maxValue ||
+    maxValue < minValue ||
+    minValue < 0 ||
+    maxValue === minValue ||
+    maxValue < value;
 
   const resetConditions =
-   value > props.maxValue ||
-    props.minValue >= props.maxValue ||
-    props.minValue < 0;
+    value > maxValue ||
+    minValue >= maxValue ||
+    minValue < 0;
 
   return (
     <div className={classes.fullCounter}>
-      <Interface
-                 maxValue={props.maxValue}
-                 minValue={props.minValue}
-                 setError={props.setError}
-                 isError={props.isError}
-      />
+      <Interface/>
 
       <div className={classes.btnWindow}>
         <div className={classes.wrapper}>
           <div className={classes.buttons}>
 
-            <Button callBack={onClickAddHandler}
-                    buttonName='Add'
-                    counter={addConditions}
+            <Button
+              callBack={onClickAddHandler}
+              buttonName='Add'
+              counter={addConditions}
             />
 
-            {props.switcher
+            {switcher
               ? <div className={classes.setBtn}>
                 <DisplaySettingsOutlinedIcon onClick={changeInterfaceHandler}/>
               </div>
               : <></>}
 
-            <Button callBack={onClickResetButtonHandler}
-                    buttonName='Reset'
-                    counter={resetConditions}
+            <Button
+              callBack={onClickResetButtonHandler}
+              buttonName='Reset'
+              counter={resetConditions}
             />
           </div>
         </div>
