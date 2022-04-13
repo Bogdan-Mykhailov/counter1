@@ -4,6 +4,7 @@ import {Button} from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {collapsedAC, errorAC, maxValueAC, minValueAC, setValueAC} from "../../BLL/counter-reducer";
 import {AppStateType} from "../../BLL/store";
+import Input from "../Input/Input";
 
 export const SetPanel = () => {
 
@@ -37,34 +38,34 @@ export const SetPanel = () => {
       <div>
         <div className={classes.inputInterface}>
 
-          <h3>Max value:</h3>
+          <h3>Click to change <br/> Max value:</h3>
 
-          <input
+          <Input
             className={inputCondition}
-            value={maxValue}
             onChange={onChangeInputHandler1}
-            type="number"
+            value={maxValue}
           />
         </div>
 
         <div className={classes.inputInterface}>
 
-          <h3>Min value:</h3>
+          <h3>Click to change <br/> Min value:</h3>
 
-          <input
+          <Input
             className={inputCondition}
-            value={minValue}
             onChange={onChangeInputHandler2}
-            type="number"
+            value={minValue}
           />
         </div>
 
       </div>
-      <Button
-        callBack={onClickSetButtonHandler}
-        buttonName='Set'
-        counter={setButtonDisableCondition}
-      />
+      <div className={classes.setButton}>
+        <Button
+          callBack={onClickSetButtonHandler}
+          buttonName='Set'
+          counter={setButtonDisableCondition}
+        />
+      </div>
     </div>
   );
 };
