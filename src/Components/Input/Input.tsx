@@ -28,7 +28,7 @@ const Input = (props: InputPropsType) => {
       {
         changingMode
 
-          ? <span className={classes.span} onDoubleClick={editModeHandler}>{props.value}</span>
+          ? <span className={classes.span} onClick={editModeHandler}>{props.value}</span>
 
           : <input
             className={props.className}

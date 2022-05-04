@@ -39,7 +39,7 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
       return {...state, value: action.payload.minValue}
     }
     case ACTIONS.SET_VALUE: {
-      return {...state, value: action.payload.inputValue2}
+      return {...state, value: action.payload.minValue}
     }
     case ACTIONS.ERROR: {
       return {...state, isError: action.payload.isError}
@@ -74,10 +74,10 @@ export const resetValueAC = (minValue: number) => ({
 } as const);
 
 export type setValueACType = ReturnType<typeof setValueAC>;
-export const setValueAC = (inputValue2: number) => ({
+export const setValueAC = (minValue: number) => ({
   type: ACTIONS.SET_VALUE,
   payload: {
-    inputValue2
+    minValue
   }
 } as const);
 
