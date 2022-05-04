@@ -38,7 +38,7 @@ export const SetPanel = () => {
       <div>
         <div className={classes.inputInterface}>
 
-          <h3>Click to change <br/> Max value:</h3>
+          <h3>Click number to change <br/> Max value:</h3>
 
           <Input
             className={inputCondition}
@@ -49,7 +49,7 @@ export const SetPanel = () => {
 
         <div className={classes.inputInterface}>
 
-          <h3>Click to change <br/> Min value:</h3>
+          <h3>Click number to change <br/> Min value:</h3>
 
           <Input
             className={inputCondition}
