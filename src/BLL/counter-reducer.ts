@@ -9,51 +9,39 @@ const initialState = {
 
 type InitialStateType = typeof initialState;
 
-export enum ACTIONS {
-  ADD_VALUE = 'ADD-VALUE',
-  RESET_VALUE = 'RESET-VALUE',
-  SET_VALUE = 'SET-VALUE',
-  ERROR = 'ERROR',
-  COLLAPSED = 'COLLAPSED',
-  SWITCHER = 'SWITCHER',
-  MAX_VALUE = 'MAX_VALUE',
-  MIN_VALUE = 'MIN_VALUE',
-}
-
-export type ActionTypes =
-  incrementValueACType
-  | resetValueACType
-  | setValueACType
-  | errorACType
-  | collapsedACType
-  | switcherACType
-  | maxValueACType
-  | minValueACType
+const ADD_VALUE = 'ADD-VALUE'
+const RESET_VALUE = 'RESET-VALUE'
+const SET_VALUE = 'SET-VALUE'
+const ERROR = 'ERROR'
+const COLLAPSED = 'COLLAPSED'
+const SWITCHER = 'SWITCHER'
+const MAX_VALUE = 'MAX_VALUE'
+const MIN_VALUE = 'MIN_VALUE'
 
 export const counterReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
-    case ACTIONS.ADD_VALUE: {
+    case ADD_VALUE: {
       return {...state, value: state.value + 1}
     }
-    case ACTIONS.RESET_VALUE: {
+    case RESET_VALUE: {
       return {...state, value: action.payload.minValue}
     }
-    case ACTIONS.SET_VALUE: {
+    case SET_VALUE: {
       return {...state, value: action.payload.minValue}
     }
-    case ACTIONS.ERROR: {
+    case ERROR: {
       return {...state, isError: action.payload.isError}
     }
-    case ACTIONS.COLLAPSED: {
+    case COLLAPSED: {
       return {...state, collapsed: action.payload.collapsed}
     }
-    case ACTIONS.SWITCHER: {
+    case SWITCHER: {
       return {...state, switcher: action.payload.switcher}
     }
-    case ACTIONS.MAX_VALUE: {
+    case MAX_VALUE: {
       return {...state, maxValue: action.payload.maxValue}
     }
-    case ACTIONS.MIN_VALUE: {
+    case MIN_VALUE: {
       return {...state, minValue: action.payload.minValue}
     }
 
@@ -62,62 +50,60 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
   }
 };
 
-export type incrementValueACType = ReturnType<typeof incrementValueAC>;
-export const incrementValueAC = () => ({type: ACTIONS.ADD_VALUE} as const);
-
-export type resetValueACType = ReturnType<typeof resetValueAC>;
+//actions
+export const incrementValueAC = () => ({type: ADD_VALUE} as const);
 export const resetValueAC = (minValue: number) => ({
-  type: ACTIONS.RESET_VALUE,
+  type: RESET_VALUE,
   payload: {
     minValue
   }
 } as const);
-
-export type setValueACType = ReturnType<typeof setValueAC>;
 export const setValueAC = (minValue: number) => ({
-  type: ACTIONS.SET_VALUE,
+  type: SET_VALUE,
   payload: {
     minValue
   }
 } as const);
-
-export type errorACType = ReturnType<typeof errorAC>;
 export const errorAC = (isError: boolean) => ({
-  type: ACTIONS.ERROR,
+  type: ERROR,
   payload: {
     isError
   }
 } as const);
-
-export type collapsedACType = ReturnType<typeof collapsedAC>;
 export const collapsedAC = (collapsed: boolean) => ({
-  type: ACTIONS.COLLAPSED,
+  type: COLLAPSED,
   payload: {
     collapsed
   }
 } as const);
-
-export type switcherACType = ReturnType<typeof switcherAC>;
 export const switcherAC = (switcher: boolean) => ({
-  type: ACTIONS.SWITCHER,
+  type: SWITCHER,
   payload: {
     switcher
   }
 } as const);
-
-export type maxValueACType = ReturnType<typeof maxValueAC>;
 export const maxValueAC = (maxValue: number) => ({
-  type: ACTIONS.MAX_VALUE,
+  type: MAX_VALUE,
   payload: {
     maxValue
 
   }
 } as const);
-
-export type minValueACType = ReturnType<typeof minValueAC>;
 export const minValueAC = (minValue: number) => ({
-  type: ACTIONS.MIN_VALUE,
+  type: MIN_VALUE,
   payload: {
     minValue
   }
 } as const);
+
+//types
+
+export type ActionTypes =
+  | ReturnType<typeof incrementValueAC>
+  | ReturnType<typeof resetValueAC>
+  | ReturnType<typeof setValueAC>
+  | ReturnType<typeof errorAC>
+  | ReturnType<typeof collapsedAC>
+  | ReturnType<typeof switcherAC>
+  | ReturnType<typeof maxValueAC>
+  | ReturnType<typeof minValueAC>
